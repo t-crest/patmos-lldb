@@ -1924,6 +1924,7 @@ Thread::GetUnwinder ()
             case llvm::Triple::x86:
             case llvm::Triple::arm:
             case llvm::Triple::thumb:
+            case llvm::Triple::patmos:
                 m_unwinder_ap.reset (new UnwindLLDB (*this));
                 break;
                 

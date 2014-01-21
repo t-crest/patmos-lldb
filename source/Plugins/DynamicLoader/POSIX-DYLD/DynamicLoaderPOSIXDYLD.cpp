@@ -104,6 +104,7 @@ DynamicLoaderPOSIXDYLD::~DynamicLoaderPOSIXDYLD()
 void
 DynamicLoaderPOSIXDYLD::DidAttach()
 {
+printf("DynamicLoaderPOSIXDYLD::DidAttach\n");
     ModuleSP executable;
     addr_t load_offset;
 
@@ -112,10 +113,14 @@ DynamicLoaderPOSIXDYLD::DidAttach()
     executable = GetTargetExecutable();
     load_offset = ComputeLoadOffset();
 
+printf("DynamicLoaderPOSIXDYLD::DidAttach - get : %p\n", executable.get());
+printf("DynamicLoaderPOSIXDYLD::DidAttach - load_offset : %p\n", load_offset);
+load_offset = 0;
     if (executable.get() && load_offset != LLDB_INVALID_ADDRESS)
     {
         ModuleList module_list;
         module_list.Append(executable);
+printf("DynamicLoaderPOSIXDYLD::DidAttach - 2\n");
         UpdateLoadedSections(executable, load_offset);
         LoadAllCurrentModules();
         m_process->GetTarget().ModulesDidLoad(module_list);
@@ -137,6 +142,7 @@ DynamicLoaderPOSIXDYLD::DidLaunch()
     {
         ModuleList module_list;
         module_list.Append(executable);
+printf("DynamicLoaderPOSIXDYLD::DidLaunch\n");
         UpdateLoadedSections(executable, load_offset);
         ProbeEntry();
         m_process->GetTarget().ModulesDidLoad(module_list);
@@ -204,6 +210,7 @@ DynamicLoaderPOSIXDYLD::CanLoadImage()
 void
 DynamicLoaderPOSIXDYLD::UpdateLoadedSections(ModuleSP module, addr_t base_addr)
 {
+printf("DynamicLoaderPOSIXDYLD::UpdateLoadedSections\n");
     ObjectFile *obj_file = module->GetObjectFile();
     SectionList *sections = obj_file->GetSectionList();
     SectionLoadList &load_list = m_process->GetTarget().GetSectionLoadList();
@@ -414,10 +421,12 @@ DynamicLoaderPOSIXDYLD::LoadModuleAtAddress(const FileSpec &file, addr_t base_ad
     ModuleSpec module_spec (file, target.GetArchitecture());
     if ((module_sp = modules.FindFirstModule (module_spec))) 
     {
+printf("DynamicLoaderPOSIXDYLD::LoadModuleAtAddress - 1\n");
         UpdateLoadedSections(module_sp, base_addr);
     }
     else if ((module_sp = target.GetSharedModule(module_spec))) 
     {
+printf("DynamicLoaderPOSIXDYLD::LoadModuleAtAddress - 2\n");
         UpdateLoadedSections(module_sp, base_addr);
         modules.Append(module_sp);
     }
@@ -454,13 +463,15 @@ DynamicLoaderPOSIXDYLD::GetEntryPoint()
         return m_entry_point;
 
     if (m_auxv.get() == NULL)
+    {printf("DynamicLoaderPOSIXDYLD::GetEntryPoint - no auxv\n");
         return LLDB_INVALID_ADDRESS;
-
+    }
     AuxVector::iterator I = m_auxv->FindEntry(AuxVector::AT_ENTRY);
 
     if (I == m_auxv->end())
+    {printf("DynamicLoaderPOSIXDYLD::GetEntryPoint - not found\n");
         return LLDB_INVALID_ADDRESS;
-
+    }
     m_entry_point = static_cast<addr_t>(I->value);
     return m_entry_point;
 }

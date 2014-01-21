@@ -230,7 +230,7 @@ static const ArchDefinitionEntry g_elf_arch_entries[] =
     { ArchSpec::eCore_arm_generic     , llvm::ELF::EM_ARM    , LLDB_INVALID_CPUTYPE, 0xFFFFFFFFu, 0xFFFFFFFFu }, // ARM
     { ArchSpec::eCore_sparc9_generic  , llvm::ELF::EM_SPARCV9, LLDB_INVALID_CPUTYPE, 0xFFFFFFFFu, 0xFFFFFFFFu }, // SPARC V9
     { ArchSpec::eCore_x86_64_x86_64   , llvm::ELF::EM_X86_64 , LLDB_INVALID_CPUTYPE, 0xFFFFFFFFu, 0xFFFFFFFFu }, // AMD64
-    { ArchSpec::eCore_patmos, llvm::ELF::EM_PATMOS, LLDB_INVALID_CPUTYPE, 0xFFFFFFFFu, 0xFFFFFFFFu } // patmos
+    { ArchSpec::eCore_patmos          , llvm::ELF::EM_PATMOS , LLDB_INVALID_CPUTYPE, 0xFFFFFFFFu, 0xFFFFFFFFu }  // patmos
 };
 
 static const ArchDefinition g_elf_arch_def = {
