@@ -483,8 +483,8 @@ BreakpointLocation::ResolveBreakpointSite ()
     if (process == NULL)
         return false;
 
-//    if (m_owner.GetTarget().GetSectionLoadList().IsEmpty())
-//        return false;
+    if (m_owner.GetTarget().GetSectionLoadList().IsEmpty())
+        return false;
 
     lldb::break_id_t new_id = process->CreateBreakpointSite (shared_from_this(), false);
 

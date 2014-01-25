@@ -115,7 +115,8 @@ FuncUnwinders::GetUnwindPlanAtNonCallSite (Thread& thread)
     {
         m_tried_unwind_at_non_call_site = true;
         m_unwind_plan_non_call_site_sp.reset (new UnwindPlan (lldb::eRegisterKindGeneric));
-        if (!m_assembly_profiler->GetNonCallSiteUnwindPlanFromAssembly (m_range, thread, *m_unwind_plan_non_call_site_sp))
+        if (m_assembly_profiler &&
+            !m_assembly_profiler->GetNonCallSiteUnwindPlanFromAssembly (m_range, thread, *m_unwind_plan_non_call_site_sp))
             m_unwind_plan_non_call_site_sp.reset();
     }
     return m_unwind_plan_non_call_site_sp;
