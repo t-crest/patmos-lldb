@@ -72,6 +72,7 @@ set( LLDB_USED_LIBS
   lldbPluginABIMacOSX_arm
   lldbPluginABIMacOSX_i386
   lldbPluginABISysV_x86_64
+  lldbPluginABIUnknown_Patmos
   lldbPluginInstructionARM
   lldbPluginObjectFilePECOFF
   lldbPluginOSPython

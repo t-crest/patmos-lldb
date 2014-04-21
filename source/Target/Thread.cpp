@@ -2011,6 +2011,7 @@ Thread::GetUnwinder ()
             case llvm::Triple::arm:
             case llvm::Triple::thumb:
             case llvm::Triple::mips64:
+            case llvm::Triple::patmos:
                 m_unwinder_ap.reset (new UnwindLLDB (*this));
                 break;
                 

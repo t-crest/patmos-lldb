@@ -118,7 +118,7 @@ DynamicLoaderPOSIXDYLD::DidAttach()
 
     executable = GetTargetExecutable();
     load_offset = ComputeLoadOffset();
-
+load_offset = 0;
     if (executable.get() && load_offset != LLDB_INVALID_ADDRESS)
     {
         ModuleList module_list;
@@ -139,7 +139,7 @@ DynamicLoaderPOSIXDYLD::DidLaunch()
 
     executable = GetTargetExecutable();
     load_offset = ComputeLoadOffset();
-
+load_offset = 0;
     if (executable.get() && load_offset != LLDB_INVALID_ADDRESS)
     {
         ModuleList module_list;
