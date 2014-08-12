@@ -92,7 +92,7 @@ public:
         eCore_x86_64_x86_64,
         eCore_uknownMach32,
         eCore_uknownMach64,
-        eCore_patmos
+        eCore_patmos,
         kNumCores,
 
         kCore_invalid,

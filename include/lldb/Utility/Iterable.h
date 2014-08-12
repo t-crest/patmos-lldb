@@ -194,7 +194,7 @@ public:
 template <typename C, typename E, E (*A)(typename C::const_iterator &)> class LockingAdaptedIterable : public AdaptedIterable<C, E, A>
 {
 private:
-    Mutex *m_mutex = nullptr;
+    Mutex *m_mutex;
 public:
     LockingAdaptedIterable (C &container, Mutex &mutex) :
         AdaptedIterable<C,E,A>(container),
